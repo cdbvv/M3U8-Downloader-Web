@@ -1,0 +1,5 @@
+﻿
+
+
+
+docker run --restart=always --name m3u8 -v /webs/m3u8/download:/app/wwwroot/download/ -p 7070:80 -dit m3u8

@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <div>
+        <span>增加下载</span><br />
+        <form action="/download/add" method="post">
+            文件名：<input name="name" /><br />
+            下载地址：<input name="m3u8_url" /><br />
+            <input type="submit" value="提交" />
+        </form>
+    </div><br />
+    <div>
+        <span>下载列表</span><br />
+        <input type="button" onclick="get_list()" value="刷新" /><br />
+        <ul id="list"></ul>
+    </div>
+</div>
+<script>
+
+    function get_list() {
+        $.ajax({
+            type: "get",      //data 传送数据类型。post 传递
+            dataType: 'json',  // 返回数据的数据类型json
+            url: '/download/list',  // yii 控制器/方法
+            error: function () {
+                alert("数据传输错误");
+            }, success: function (data) {
+                var ul = $("#list");
+                ul.html("");
+                for (var i = 0; i < data.data.length; i++) {
+                    var item = data.data[i];
+                    ul.prepend("<li>" + item.name + "," + item.progress + "," + item.download_size + "</li>");
+                }
+            }
+        });
+    }
+    var timeoutId = setInterval(function () {
+        get_list();
+    }, 1000);
+
+</script>
