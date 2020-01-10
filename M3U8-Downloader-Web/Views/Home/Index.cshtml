@@ -5,10 +5,10 @@
 <div class="text-center">
     <div>
         <span>增加下载</span><br />
-        <form action="/download/add" method="post">
+        <form id="form_add" action="/download/add" method="post">
             文件名：<input name="name" /><br />
             下载地址：<input name="m3u8_url" /><br />
-            <input type="submit" value="提交" />
+            <input type="button" onclick="add()" value="提交" />
         </form>
     </div><br />
     <div>
@@ -39,5 +39,18 @@
     var timeoutId = setInterval(function () {
         get_list();
     }, 1000);
-
+    function add() {
+        $.ajax({
+            type: "POST",      //data 传送数据类型。post 传递
+            dataType: 'json',  // 返回数据的数据类型json
+            url: '/download/add',  // yii 控制器/方法
+            cache: false,
+            data: $("#form_add").serialize(),  //传送的数据
+            error: function () {
+                alert("数据传输错误");
+            }, success: function (data) {
+                alert(data.msg);
+            }
+        });
+    }
 </script>

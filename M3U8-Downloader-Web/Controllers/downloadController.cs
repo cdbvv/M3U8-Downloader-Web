@@ -23,6 +23,10 @@ namespace M3U8_Downloader_Web.Controllers
         [HttpPost]
         public object add(download_model model)
         {
+            if (download_list.Where(a => a.name == model.name || a.m3u8_url == model.m3u8_url).Count() > 0)
+            {
+                return new { code = 400, msg = "已存在相同文件名或下载地址" };
+            }
             model.id = Guid.NewGuid().ToString("N");
             model.create_time = DateTime.Now;
             model.download_path = AppContext.BaseDirectory + "wwwroot/download/";
