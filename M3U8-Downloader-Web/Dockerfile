@@ -11,7 +11,7 @@ EXPOSE 443
 #设置时区
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 RUN echo 'Asia/Shanghai' >/etc/timezone
-RUN chmod 777 ffmpeg-4.2.2/ffmpeg
+RUN chmod 777 /app/ffmpeg-4.2.2/ffmpeg
 #容器中使用 ["dotnet","系统启动的dll"] 来运行应用程序
 #使用ENTRYPOINT ["dotnet","系统启动的dll"]
 #或使用 CMD ["dotnet","系统启动的dll"]
